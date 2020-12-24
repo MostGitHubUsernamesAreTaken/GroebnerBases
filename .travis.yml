@@ -1,0 +1,7 @@
+language: cpp
+
+before_install:
+  - sudo apt-get -y install libginac-dev
+  
+compiler:
+  - gcc
