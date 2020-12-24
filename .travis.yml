@@ -1,5 +1,5 @@
 before_install:
-  - sudo apt-get -y install ginac
+  - sudo apt-get -y install libginac
   
 compiler:
   - gcc
