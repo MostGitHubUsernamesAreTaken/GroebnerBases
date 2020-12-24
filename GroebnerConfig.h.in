@@ -1,0 +1,3 @@
+// the configured options and settings for Tutorial
+#define Groebner_VERSION_MAJOR @Groebner_VERSION_MAJOR@
+#define Groebner_VERSION_MINOR @Groebner_VERSION_MINOR@
