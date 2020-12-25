@@ -24,3 +24,6 @@ add_executable(tester tst/multinomial_test.cpp)
 target_link_libraries(tester PUBLIC src -lgtest -lginac)
 
 enable_testing()
+find_package(GTest REQUIRED)
+include(GoogleTest)
+gtest_discover_tests(tester)
