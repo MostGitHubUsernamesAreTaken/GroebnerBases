@@ -9,7 +9,8 @@ class MultinomialTest : public testing::Test
 public:
   multinomial P, Q;
   symbol a, b, x, y, z;
-  std::vector<symbol> P_vars, sorted_P_vars, Q_vars;
+  std::vector<symbol> P_vars = {z, x, b, y, a}, sorted_P_vars = {a,b,x,y,z};
+  std::vector<symbol> Q_vars = {z};
 
   virtual void SetUp()
   {
@@ -20,9 +21,6 @@ public:
     z = symbol("z");
     // create a multinomial and make the constructor sort the variables into
     // lexicographical ordering
-    P_vars = {z, x, b, y, a};
-    sorted_P_vars = {a,b,x,y,z};
-    Q_vars = {z};
     P = multinomial(pow(x, 3) + pow(y, 4) + x*y, P_vars);
     Q = multinomial(pow(x, y), Q_vars);
   }
