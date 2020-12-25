@@ -9,8 +9,8 @@ class MultinomialTest : public testing::Test
 public:
   multinomial P, Q;
   symbol a, b, x, y, z;
-  std::vector<symbol> P_vars = {z, x, b, y, a}, sorted_P_vars = {a,b,x,y,z};
-  std::vector<symbol> Q_vars = {z};
+  std::vector<symbol> P_vars{z, x, b, y, a}, sorted_P_vars{a,b,x,y,z};
+  std::vector<symbol> Q_vars{z};
 
   virtual void SetUp()
   {
