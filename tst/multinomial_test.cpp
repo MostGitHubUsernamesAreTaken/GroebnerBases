@@ -10,7 +10,6 @@ public:
   multinomial P, Q;
   symbol a, b, x, y, z;
   std::vector<symbol> P_vars{z, x, b, y, a}, sorted_P_vars{a,b,x,y,z};
-  std::vector<symbol> Q_vars{z};
 
   virtual void SetUp()
   {
@@ -31,9 +30,11 @@ public:
 
 TEST_F(MultinomialTest, testConstructor)
 {
+  EXPECT_EQ(std::vector<symbol>(), Q.vars());
+  EXPECT_EQ(0, Q.expr());
   EXPECT_EQ(sorted_P_vars, P.vars());
   EXPECT_EQ(pow(x,3) + pow(y,4) + x*y, P.expr());
-  EXPECT_THROW(multinomial(pow(x, y), Q_vars), std::domain_error);
+  EXPECT_THROW(multinomial(pow(x, y), {z}), std::domain_error);
 }
 
 int main(int argc, char **argv) {
