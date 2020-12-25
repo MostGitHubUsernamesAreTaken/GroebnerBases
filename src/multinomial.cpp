@@ -5,7 +5,7 @@ using GiNaC::symbol;
 using std::domain_error;
 
 multinomial::multinomial(){
-  variables = std::vector<symbol>({});
+  variables = std::vector<symbol>();
   expression = 0;
 }
 

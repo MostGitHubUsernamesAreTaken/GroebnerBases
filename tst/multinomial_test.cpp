@@ -19,8 +19,8 @@ public:
     z = symbol("z");
     // create a multinomial and make the constructor sort the variables into
     // lexicographical ordering
-    P = multinomial(pow(x, 3) + pow(y, 4) + x*y, {z, x, b, y, a});
-    Q = multinomial(pow(x, y), {z});
+    P = multinomial(pow(x, 3) + pow(y, 4) + x*y, std::vector<symbol>({z, x, b, y, a}));
+    Q = multinomial(pow(x, y), std::vector<symbol>({z}));
   }
 
   virtual void TearDown()
