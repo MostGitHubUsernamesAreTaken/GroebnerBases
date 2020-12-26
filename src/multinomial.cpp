@@ -9,13 +9,13 @@ multinomial::multinomial(){
   expression = 0;
 }
 
-multinomial::multinomial(GiNaC::ex expr, std::vector<symbol> vars){
+multinomial::multinomial(const GiNaC::ex& expr, const std::vector<symbol>& vars){
   if(!expr.info(info_flags::rational_polynomial))
     throw domain_error("Not a multinomial over the rationals.");
 
   // put variables into lexicographical ordering
-  sort(vars.begin(), vars.end(), lexicographical_ordering);
   variables = vars;
+  sort(variables.begin(), variables.end(), lexicographical_ordering);
   expression = expr;
 }
 

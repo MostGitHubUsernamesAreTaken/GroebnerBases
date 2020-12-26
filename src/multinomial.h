@@ -10,7 +10,7 @@ class multinomial {
 public:
   // constructor:
   multinomial();
-  multinomial(GiNaC::ex, std::vector<GiNaC::symbol>); // TODO: should I use const and or pass by reference?
+  multinomial(const GiNaC::ex&, const std::vector<GiNaC::symbol>&);
 
   // access to data structure
   std::vector<GiNaC::symbol> vars() const {return variables;}
