@@ -8,23 +8,27 @@
 
 class multinomial {
 public:
+  typedef std::vector<GiNaC::symbol> var_container;
   // constructor:
   multinomial();
-  multinomial(const GiNaC::ex&, const std::vector<GiNaC::symbol>&);
+  multinomial(const GiNaC::ex&, const var_container&);
 
   // access to data structure
-  std::vector<GiNaC::symbol> vars() const {return variables;}
+  var_container vars() const {return variables;}
   GiNaC::ex expr() const {return expression;}
 
   // leading monomial under lexicographical ordering
-  // GiNaC::ex lm() const;
+  // multinomial lm() const;
   // leading term under lexicographical ordering
-  // GiNaC::ex lt() const;
+  // multinomial lt() const;
+
+  // overloads
+  template <class T> multinomial operator*(const T&);
 
 private:
   GiNaC::ex expression;
   // choose std::list over GiNaC's lst
-  std::vector<GiNaC::symbol> variables;
+  var_container variables;
 };
 
 bool lexicographical_ordering(const GiNaC::symbol& x, const GiNaC::symbol& y);

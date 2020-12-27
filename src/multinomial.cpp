@@ -9,7 +9,7 @@ multinomial::multinomial(){
   expression = 0;
 }
 
-multinomial::multinomial(const GiNaC::ex& expr, const std::vector<symbol>& vars){
+multinomial::multinomial(const GiNaC::ex& expr, const var_container& vars){
   if(!expr.info(info_flags::rational_polynomial))
     throw domain_error("Not a multinomial over the rationals.");
 
@@ -22,3 +22,15 @@ multinomial::multinomial(const GiNaC::ex& expr, const std::vector<symbol>& vars)
 bool lexicographical_ordering(const symbol& x, const symbol& y){
   return x.get_name() < y.get_name();
 }
+
+// multinomial multinomial::lt() const{
+//   // returns the leading term according to the monomial ordering of the variables
+//   const symbol x = variables.front();
+//   if (variables.size() == 1){
+//     return multinomial(expression.lcoeff(x)*pow(x, expression.degree(x)), variables);
+//   } else{
+//     var_container remaining_variables = variables;
+//     remaining_variables.erase(variables.begin());
+//     return multinomial(multinomial(expression.lcoeff(x), remaining_variables)*pow(x, expression.degree(x)), variables);
+//   }
+// }
