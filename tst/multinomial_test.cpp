@@ -37,6 +37,12 @@ TEST_F(MultinomialTest, testConstructor)
   EXPECT_THROW(multinomial(pow(x, y), {z}), std::domain_error);
 }
 
+TEST_F(MultinomialTest, testMultiplicationOverload)
+{
+  EXPECT_EQ(2*pow(x,3) + 2*pow(y,4) + 2*x*y, (P*3).expr());
+  EXPECT_EQ(sorted_P_vars, (P*2).vars());
+}
+
 int main(int argc, char **argv) {
     testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();

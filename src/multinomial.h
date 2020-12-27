@@ -26,7 +26,10 @@ public:
   // multinomial lt() const;
 
   // overloads
-  template <class T> multinomial operator*(const T&);
+  template <class T> multinomial operator*(const T& factor){
+    expression *= GiNaC::ex(factor);
+    return multinomial(expression, variables);
+  };
 
 private:
   GiNaC::ex expression;

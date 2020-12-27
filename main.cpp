@@ -19,5 +19,7 @@ int main(int argc, char* argv[]){
 			poly += GiNaC::factorial(i+16)*GiNaC::pow(x,i)*GiNaC::pow(y,2-i);
 
 	std::cout << poly << std::endl;
+
+	std::cout << poly << std::endl;
 	return 0;
 }
