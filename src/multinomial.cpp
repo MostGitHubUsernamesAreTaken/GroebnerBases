@@ -5,11 +5,11 @@ using GiNaC::symbol;
 using std::domain_error;
 
 multinomial::multinomial(){
-  variables = std::vector<symbol>();
+  variables = variable_container();
   expression = 0;
 }
 
-multinomial::multinomial(const GiNaC::ex& expr, const var_container& vars){
+multinomial::multinomial(const GiNaC::ex& expr, const variable_container& vars){
   if(!expr.info(info_flags::rational_polynomial))
     throw domain_error("Not a multinomial over the rationals.");
 
@@ -19,7 +19,7 @@ multinomial::multinomial(const GiNaC::ex& expr, const var_container& vars){
   expression = expr;
 }
 
-bool lexicographical_ordering(const symbol& x, const symbol& y){
+bool lexicographical_ordering(const variable_type& x, const variable_type& y){
   return x.get_name() < y.get_name();
 }
 
