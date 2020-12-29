@@ -1,4 +1,4 @@
-#include "multinomial.h"
+#include "multinomial.hpp"
 
 using GiNaC::info_flags;
 using GiNaC::symbol;

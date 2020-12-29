@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "../src/multinomial.h"
+#include "../src/multinomial.hpp"
 
 using namespace GiNaC;
 

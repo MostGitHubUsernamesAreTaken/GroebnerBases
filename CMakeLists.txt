@@ -14,7 +14,7 @@ add_subdirectory(src tst)
 # add the executable
 add_executable(groebner.app main.cpp)
 target_link_libraries(groebner.app PUBLIC src -lginac)
-configure_file(GroebnerConfig.h.in GroebnerConfig.h)
+configure_file(GroebnerConfig.hpp.in GroebnerConfig.hpp)
 
 target_include_directories(groebner.app PUBLIC
                            "${PROJECT_BINARY_DIR}"

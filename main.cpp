@@ -1,7 +1,7 @@
 #include <iostream>
 
-#include "GroebnerConfig.h"
-#include "src/multinomial.h"
+#include "GroebnerConfig.hpp"
+#include "src/multinomial.hpp"
 
 int main(int argc, char* argv[]){
 	if (argc < 2) {
@@ -20,6 +20,6 @@ int main(int argc, char* argv[]){
 
 	std::cout << poly << std::endl;
 
-	std::cout << poly << std::endl;
+	std::cout << x*2 << 2*x << std::endl;
 	return 0;
 }
