@@ -35,7 +35,6 @@ TEST_F(IdealTest, testBuchbergers_algorithm)
   EXPECT_EQ(ideal(2*(y^3) - 3*x, x^2 - 2*(y^2), x*y - 3), I5);
 }
 
-
 int main(int argc, char **argv) {
     testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
