@@ -3,14 +3,14 @@
 #include "GroebnerConfig.hpp"
 #include "src/multinomial.hpp"
 
+using std::cout;
+using std::endl;
+
 int main(int argc, char* argv[]){
-	if (argc < 2) {
 	// report version
-	std::cout << argv[0] << " Version " << Groebner_VERSION_MAJOR << "."
-						<< Groebner_VERSION_MINOR << std::endl;
-	std::cout << "Usage: " << argv[0] << " number" << std::endl;
-	return 1;
-}
+	cout << "Groebner basis calculator version " << Groebner_VERSION_MAJOR << "."
+						<< Groebner_VERSION_MINOR << endl;
+	cout << "BEWARE: In C++ 2*x^2 means (2*x)^2 so ALWAYS use parentheses around powers 2*(x^2)." << endl;
 
 	GiNaC::symbol x("x"), y("y");
 	GiNaC::ex poly;

@@ -22,7 +22,7 @@ multinomial::multinomial(const GiNaC::ex& expr, const variable_container& vars){
 bool lexicographical_ordering(const variable_type& x, const variable_type& y){
   return x.get_name() < y.get_name();
 }
-
+//
 // multinomial multinomial::lt() const{
 //   // returns the leading term according to the monomial ordering of the variables
 //   const symbol x = variables.front();

@@ -1,5 +1,4 @@
-#ifndef GUARD_multinomial_h
-#define GUARD_multinomial_h
+#pragma once
 
 #include <vector>
 #include <stdexcept>
@@ -7,8 +6,8 @@
 #include "ginac/ginac.h"
 
 // typedefs
-typedef GiNaC::symbol variable_type;
-typedef std::vector<variable_type> variable_container;
+typedef GiNaC::symbol indeterminate;
+typedef std::vector<indeterminate> variable_container;
 
 class multinomial {
 public:
@@ -23,20 +22,17 @@ public:
   // leading monomial under lexicographical ordering
   // multinomial lm() const;
   // leading term under lexicographical ordering
-  // multinomial lt() const;
+  multinomial lt() const;
 
   // overloads
-  template <class T> multinomial operator*(const T& factor){
-    expression *= GiNaC::ex(factor);
+  multinomial operator*(const multinomial& factor){
+    expression *= factor.expr();
     return multinomial(expression, variables);
   };
 
 private:
   GiNaC::ex expression;
-  // choose std::list over GiNaC's lst
   variable_container variables;
 };
 
-bool lexicographical_ordering(const variable_type& x, const variable_type& y);
-
-#endif
+bool lexicographical_ordering(const monomial& x, const monomial& y);
