@@ -34,3 +34,8 @@ bool lexicographical_ordering(const variable_type& x, const variable_type& y){
 //     return multinomial(multinomial(expression.lcoeff(x), remaining_variables)*pow(x, expression.degree(x)), variables);
 //   }
 // }
+
+multinomial s_polynomial(const multinomial& p, const multinomial& q, bool monomial_ordering(const monomial& x1, const monomial& x2)){
+  multinomial lcm = least_common_multiple(p.lm(monomial_ordering), q.lm(monomial_ordering));
+  return lcm/p.lt(monomial_ordering)*p - lcm/q.lt(monomial_ordering)*q;
+}

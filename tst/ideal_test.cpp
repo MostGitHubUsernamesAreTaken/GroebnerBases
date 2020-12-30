@@ -5,7 +5,6 @@ class IdealTest : public testing::Test
 {
 public:
   ideal I1, I2, I3, I4, I5;
-  multinomial P1, P2, P3, P4;
   indeterminate x, x0, x1, x2, y0, y1, y2, y3, z, z0, z1, z2, z3;
   virtual void SetUp()
   {
@@ -25,6 +24,7 @@ public:
   {
   }
 };
+
 
 TEST_F(IdealTest, testBuchbergers_algorithm)
 {

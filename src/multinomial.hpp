@@ -36,3 +36,5 @@ private:
 };
 
 bool lexicographical_ordering(const monomial& x, const monomial& y);
+
+multinomial s_polynomial(const multinomial&, const multinomial&, bool monomial_ordering(const monomial&, const monomial&));

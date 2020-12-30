@@ -4,10 +4,7 @@ multinomial multinomial::reduce(ideal& G){
 
 }
 
-multinomial s_polynomial(const multinomial& p, const multinomial& q, bool monomial_ordering(const monomial& x1, const monomial& x2)){
-  multinomial lcm = least_common_multiple(p.lm(monomial_ordering), q.lm(monomial_ordering));
-  return lcm/p.lt(monomial_ordering)*p - lcm/q.lt(monomial_ordering)*q;
-}
+
 
 void buchbergers_algorithm(ideal& F, bool monomial_ordering(const monomial& x1, const monomial& x2)){
   // Updates F to a reduced Groebner basis using Buchberger's algorithm,

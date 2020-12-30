@@ -2,6 +2,11 @@
 
 #include "multinomial.hpp"
 
-multinomial s_polynomial(const multinomial&, const multinomial&, bool monomial_ordering(const monomial&, const monomial&));
+class ideal{
 
-void buchbergers_algorithm(ideal&, bool monomial_ordering(const monomial&, const monomial&) = lexicographical_ordering);
+};
+
+
+
+
+void buchbergers_algorithm(ideal&, bool monomial_ordering(const monomial&, const monomial&) = lexicographical);
