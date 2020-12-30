@@ -4,10 +4,21 @@
 class IdealTest : public testing::Test
 {
 public:
+  multinomial P1, P2;
   ideal I1, I2, I3, I4, I5;
   indeterminate x, y, z;
   virtual void SetUp()
   {
+
+    P1 = x^2 - y;
+    P2 = x^3 - x;
+    S1 = s_polynomial(P1, P2, lexicographical);
+    S2 = s_polynomial(P1, S1, lexicographical);
+    S3 = s_polynomial(P2, S1, lexicographical);
+    S4 = s_polynomial(x^2 - z - 1, z^2 - y - 1, lexicographical);
+    S5 = s_polynomial(x^2-y^2, x^3-x+y^4, lexicographical);
+    S6 = s_polynomial(x^2-y^2, x^3-x+y^4, degree_reverse_lexicographical);
+
     I1 = {x^2 - y, x^3 - x};
     I2 = {x^2-2*(y^2), x*y - 3};
     I3 = {x + y, x^2 - 1, y^2 - 2*x};
@@ -25,6 +36,15 @@ public:
   }
 };
 
+TEST_F(IdealTest, testSPolynomial)
+{
+  EXPECT_EQ(x-x*y, S1);
+  EXPECT_EQ(x^2-y^2, S2);
+  EXPECT_EQ(x^3-x*y, S3);
+  EXPECT_EQ(x^2*y - z^3 + x^2 - z^2, S4);
+  EXPECT_EQ(-x*y^2 + x - y^4, S5);
+  EXPECT_EQ(-x*y^2 + x - y^4, S6);
+}
 
 TEST_F(IdealTest, testBuchbergers_algorithm)
 {
