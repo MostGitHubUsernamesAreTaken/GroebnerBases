@@ -17,6 +17,10 @@ multinomial::multinomial(const GiNaC::ex& expr, const variable_container& vars){
   variables = vars;
   sort(variables.begin(), variables.end(), lexicographical_ordering);
   expression = expr;
+
+  multinomial multinomial::reduce(const ideal& G){
+
+  }
 }
 
 bool lexicographical_ordering(const variable_type& x, const variable_type& y){

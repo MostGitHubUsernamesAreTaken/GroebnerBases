@@ -5,7 +5,7 @@ class IdealTest : public testing::Test
 {
 public:
   ideal I1, I2, I3, I4, I5;
-  indeterminate x, x0, x1, x2, y0, y1, y2, y3, z, z0, z1, z2, z3;
+  indeterminate x, y, z;
   virtual void SetUp()
   {
     I1 = {x^2 - y, x^3 - x};
