@@ -4,22 +4,32 @@
 class IdealTest : public testing::Test
 {
 public:
-  multinomial P1, P2;
+  multinomial P1, P2, P3, P4, P5, P6;
+  multinomial R1, R2, R3, R4, R5;
   ideal I1, I2, I3, I4, I5;
   indeterminate x, y, z;
   virtual void SetUp()
   {
-
     P1 = x^2 - y;
     P2 = x^3 - x;
-    S1 = s_polynomial(P1, P2, lexicographical);
-    S2 = s_polynomial(P1, S1, lexicographical);
-    S3 = s_polynomial(P2, S1, lexicographical);
-    S4 = s_polynomial(x^2 - z - 1, z^2 - y - 1, lexicographical);
-    S5 = s_polynomial(x^2-y^2, x^3-x+y^4, lexicographical);
-    S6 = s_polynomial(x^2-y^2, x^3-x+y^4, degree_reverse_lexicographical);
+    P3 = x^2 - z - 1;
+    P4 = z^2 - y - 1;
+    P5 = x^2 - y^2;
+    P6 = x^3 - x+y^4;
 
-    I1 = {x^2 - y, x^3 - x};
+    R1 = reduce(x-x*y, {P1, P2});
+    R2 = reduce(P5, {P1, P2, x-x*y});
+    R3 = reduce(x, {x+y+z});
+    R4 = reduce(x, {x+y^2+z});
+
+    S1 = s_polynomial(P1, P2);
+    S2 = s_polynomial(P1, S1);
+    S3 = s_polynomial(P2, S1);
+    S4 = s_polynomial(P3, P4);
+    S5 = s_polynomial(P5, P6);
+    S6 = s_polynomial(P5, P6);
+
+    I1 = {P1, P2};
     I2 = {x^2-2*(y^2), x*y - 3};
     I3 = {x + y, x^2 - 1, y^2 - 2*x};
     I4 = {x^2 + y^2 + z^2 - 1, x - z+2, z^2 - x*y};
@@ -36,6 +46,15 @@ public:
   }
 };
 
+TEST_F(IdealTest, testReduce)
+{
+  EXPECT_EQ(x-x*y, R1);
+  EXPECT_EQ(y-y^2, R2);
+  EXPECT_EQ(-y-z, R3);
+  EXPECT_EQ(-y^2-z, R4);
+}
+
+
 TEST_F(IdealTest, testSPolynomial)
 {
   EXPECT_EQ(x-x*y, S1);
@@ -43,7 +62,7 @@ TEST_F(IdealTest, testSPolynomial)
   EXPECT_EQ(x^3-x*y, S3);
   EXPECT_EQ(x^2*y - z^3 + x^2 - z^2, S4);
   EXPECT_EQ(-x*y^2 + x - y^4, S5);
-  EXPECT_EQ(-x*y^2 + x - y^4, S6);
+  EXPECT_EQ(-x*y^2 + x - y^4, S6); // degree_reverse_lexicographical
 }
 
 TEST_F(IdealTest, testBuchbergers_algorithm)

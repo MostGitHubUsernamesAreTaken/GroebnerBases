@@ -1,40 +1,29 @@
 #pragma once
 
 #include <vector>
+#include <set>
 #include <stdexcept>
 
 #include "ginac/ginac.h"
 
 // typedefs
 typedef GiNaC::symbol indeterminate;
-typedef std::vector<indeterminate> variable_container;
+typedef std::set<indeterminate> variable_container;
 
-class multinomial {
+class multinomial : public GiNaC::ex {
 public:
   // constructor:
-  multinomial();
-  multinomial(const GiNaC::ex&, const variable_container&);
+  multinomial() {};
+  multinomial(const GiNaC::ex&);
 
   // access to data structure
-  variable_container vars() const {return variables;}
-  GiNaC::ex expr() const {return expression;}
+  variable_container vars() const;
 
   // leading monomial under lexicographical ordering
-  // multinomial lm() const;
   // leading term under lexicographical ordering
   multinomial lt() const;
-
-  // overloads
-  multinomial operator*(const multinomial& factor){
-    expression *= factor.expr();
-    return multinomial(expression, variables);
-  };
-
-private:
-  GiNaC::ex expression;
-  variable_container variables;
 };
 
-bool lexicographical_ordering(const monomial& x, const monomial& y);
+bool is_multinomial(const GiNaC::ex& input);
 
-multinomial s_polynomial(const multinomial&, const multinomial&, bool monomial_ordering(const monomial&, const monomial&));
+multinomial rem(const multinomial&, const multinomial&);
