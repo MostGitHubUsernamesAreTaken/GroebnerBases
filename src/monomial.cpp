@@ -1,5 +1,11 @@
 #include "monomial.hpp"
 
-bool lexicographical(const monomial& x, const monomial& y){
-  return x.get_name() < y.get_name();
+monomial(const multinomial&);
+
+
+
+bool is_monomial(const multinomial& p);
+
+bool lexicographical(const monomial& p, const monomial& q){
+  return p.get_name() < q.get_name();
 }

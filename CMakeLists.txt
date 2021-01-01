@@ -23,9 +23,9 @@ target_include_directories(groebner.app PUBLIC
 
 
 # add test executable
-add_executable(tester tst/multinomial_test.cpp)
-target_link_libraries(tester PUBLIC src gtest ${CMAKE_THREAD_LIBS_INIT} -lginac)
+#add_executable(tester tst/multinomial_test.cpp)
+#target_link_libraries(tester PUBLIC src gtest ${CMAKE_THREAD_LIBS_INIT} -lginac)
 
-enable_testing()
-include(GoogleTest)
-gtest_discover_tests(tester)
+#enable_testing()
+#include(GoogleTest)
+#gtest_discover_tests(tester)

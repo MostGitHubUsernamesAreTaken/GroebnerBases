@@ -1,7 +1,7 @@
 #include <iostream>
 
 #include "GroebnerConfig.hpp"
-#include "src/multinomial.hpp"
+#include "src/ideal.hpp"
 
 using std::cout;
 using std::endl;
