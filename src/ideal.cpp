@@ -3,11 +3,12 @@
 using GiNaC::lcm;
 using GiNaC::const_iterator;
 using GiNaC::is_a;
+using GiNaC::ex_to;
 using std::next;
 
 multinomial lead_term(const multinomial& p) {
   // returns the leading term according to the monomial ordering of the variables
-  variable_container vars = indets(p);
+  indet_set vars = find_indet_set(p);
   const indeterminate x = *(vars.begin());
 
   if (vars.size() == 1){
@@ -22,7 +23,7 @@ monomial leading_monomial(const multinomial& p){
   field_element coeff = 1;
   for (const_iterator i = p0.begin(); i != p0.end(); ++i){
     if (is_a<field_element>(*i)){
-      coeff *= *i;
+      coeff *= ex_to<field_element>(*i);
     }
   }
   return p0/coeff;

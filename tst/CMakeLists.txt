@@ -1,1 +1,1 @@
-add_library(src multinomial_test.cpp)
+add_library(src testmain.cpp)

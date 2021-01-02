@@ -1,10 +1,10 @@
 #pragma once
 
 #include <set>
-#include "multinomial.hpp"
-#include "monomial.hpp"
-#include "indets.hpp"
 
+#include "monomial.hpp"
+
+typedef GiNaC::numeric field_element;
 typedef std::set<multinomial> ideal;
 
 multinomial lead_term(const multinomial& p);
