@@ -14,7 +14,7 @@ add_subdirectory(src tst)
 
 # add the executable
 add_executable(groebner.app main.cpp)
-target_link_libraries(groebner.app PUBLIC src -lginac)
+target_link_libraries(groebner.app PUBLIC src -lginac -lcln)
 configure_file(GroebnerConfig.hpp.in GroebnerConfig.hpp)
 
 target_include_directories(groebner.app PUBLIC
@@ -25,7 +25,7 @@ target_include_directories(groebner.app PUBLIC
 
 # add test executable
 add_executable(tester tst/testmain.cpp)
-target_link_libraries(tester PUBLIC src gtest ${CMAKE_THREAD_LIBS_INIT} -lginac)
+target_link_libraries(tester PUBLIC src gtest ${CMAKE_THREAD_LIBS_INIT} -lginac -lcln)
 
 enable_testing()
 include(GoogleTest)

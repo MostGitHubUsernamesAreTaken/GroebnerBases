@@ -5,45 +5,71 @@ using GiNaC::const_iterator;
 using GiNaC::is_a;
 using GiNaC::ex_to;
 using std::next;
+using std::any_of;
 
-multinomial lead_term(const multinomial& p) {
+multinomial leading_term(const multinomial& p){
   // returns the leading term according to the monomial ordering of the variables
   indet_set vars = find_indet_set(p);
-  const indeterminate x = *(vars.begin());
 
-  if (vars.size() == 1){
-    return (p.lcoeff(x))*pow(x, p.degree(x));
+  if (vars.size() == 0){
+    return p;
   } else{
-    return lead_term(p.lcoeff(x))*pow(x, p.degree(x));
+    multinomial p_exp = p.expand(); // GiNaC's lcoeff doesn't work with unexpanded inputs
+    const indeterminate x = *(vars.begin());
+    return leading_term(p_exp.lcoeff(x))*pow(x, p_exp.degree(x));
   }
 }
 
 monomial leading_monomial(const multinomial& p){
-  multinomial p0 = lead_term(p);
-  field_element coeff = 1;
-  for (const_iterator i = p0.begin(); i != p0.end(); ++i){
-    if (is_a<field_element>(*i)){
-      coeff *= ex_to<field_element>(*i);
-    }
+  indet_set vars = find_indet_set(p);
+  if (vars.size() == 0){
+    return 1;
+  } else{
+    multinomial p_exp = p.expand(); // GiNaC's lcoeff doesn't work with unexpanded inputs
+    const indeterminate x = *(vars.begin());
+    return leading_monomial(p_exp.lcoeff(x))*pow(x, p_exp.degree(x));
   }
-  return p0/coeff;
+}
+
+multinomial leading_coeff(const multinomial& p){
+  // returns the leading term according to the monomial ordering of the variables
+  indet_set vars = find_indet_set(p);
+
+  if (vars.size() == 0){
+    return p;
+  } else{
+    multinomial p_exp = p.expand(); // GiNaC's lcoeff doesn't work with unexpanded inputs
+    const indeterminate x = *(vars.begin());
+    return leading_coeff(p_exp.lcoeff(x));
+  }
 }
 
 multinomial rem(const multinomial& numerator, const multinomial& denominator){
   // perform multinomial division and return the remainder
   multinomial res = numerator;
-  multinomial divisor = lead_term(denominator);
-  multinomial lead = lead_term(res);
-  while(is_multinomial(lead/divisor)){
+  multinomial divisor = leading_term(denominator);
+  multinomial lead = leading_term(res);
+  while(res != 0 && is_multinomial(lead/divisor)){
     res -= lead/divisor*denominator;
-    lead = lead_term(res);
+    res = res.expand(); // need a simplifying step
+    lead = leading_term(res);
   }
-  return res;
+  return res.expand();
+}
+
+bool leading_monomial_divisor(const multinomial& p, const multinomial& q){
+  monomial p_lt = leading_monomial(p);
+  monomial q_lt = leading_monomial(q);
+  return rem(p_lt, q_lt) == 0;
+}
+
+bool is_inferior_ideal_element(const multinomial& p, const ideal& I){
+  return any_of(I.begin(), I.end(), [p](multinomial q){return leading_monomial_divisor(p, q);});
 }
 
 multinomial reduce(const multinomial& p, const ideal& G){
   multinomial res = p;
-  for(ideal::iterator iter = G.begin(); iter != G.end(); ++iter){
+  for(ideal::const_iterator iter = G.begin(); iter != G.end(); ++iter){
     res = rem(res, *iter);
   }
   return res;
@@ -51,21 +77,58 @@ multinomial reduce(const multinomial& p, const ideal& G){
 
 multinomial s_polynomial(const multinomial& p, const multinomial& q){
   multinomial the_lcm = lcm(leading_monomial(p), leading_monomial(q));
-  return the_lcm/lead_term(p)*p - the_lcm/lead_term(q)*q;
+  multinomial res = the_lcm/leading_term(p)*p - the_lcm/leading_term(q)*q;
+  return res.expand();
 }
 
-void buchbergers_algorithm(ideal& F, bool monomial_ordering(const monomial& x1, const monomial& x2) = lexicographical){
+multinomial normalise(const multinomial& p){
+  // normalisation of Groeber basis
+  if (is_a<field_element>(p))
+    return 1;
+  else
+    return (p/leading_coeff(p)).expand();
+}
+
+void buchbergers_algorithm(ideal& F){
   // Updates F to a reduced Groebner basis using Buchberger's algorithm,
   // NB: A reduced Groebner basis is unique for any given ideal and monomial ordering.
   ideal G;
+
+  transform(F.begin(), F.end(), F.begin(), normalise);
+
   do {
     G = F;
-    for(ideal::iterator i = F.begin(); i != F.end(); ++i){
-      for(ideal::iterator j = next(i); j != F.end(); ++j){
+    for(ideal::const_iterator i = G.begin(); i != prev(G.end()); ++i){
+      for(ideal::const_iterator j = next(i); j != G.end(); ++j){
         multinomial s = s_polynomial(*i, *j);
-        if (reduce(s, G) != 0)
-          F.insert(s);
+        if (reduce(s, F) != 0 && find(F.begin(), F.end(), s)==F.end()){
+          F.push_back(s);
+        }
       }
     }
+
   } while (G != F);
+
+  // reduce result
+  transform(F.begin(), F.end(), F.begin(), normalise);
+
+  ideal::iterator i = F.begin();
+  while(i != F.end()){
+    ideal::iterator j = next(i);
+    while(j != F.end()){
+
+      if (leading_monomial_divisor(*j, *i)){
+        j = F.erase(j);
+
+        continue;
+      }else if (leading_monomial_divisor(*i, *j)){
+
+        i = F.erase(i);
+        j = next(i);
+        continue;
+      }
+      j++;
+    }
+    i++;
+  }
 }

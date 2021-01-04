@@ -10,6 +10,7 @@ typedef multinomial monomial;
 
 bool is_monomial(const multinomial&);
 
+//TODO: it so happens there is a lexicographical_compare in the STL, below creates confusion.
 struct lexicographical_compare final
 {
   bool operator() (const indeterminate& left, const indeterminate& right) const
