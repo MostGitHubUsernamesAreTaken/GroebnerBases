@@ -24,6 +24,6 @@ public:
 
 TEST_F(IndetsTest, testIndets)
 { // GiNaC's sort only gaurantees an order at runtime
-  EXPECT_EQ(GiNaC::lst({x, y}).sort(), I1);
-  EXPECT_EQ(GiNaC::lst({x, y, z}).sort(), I2);
+  EXPECT_EQ((GiNaC::lst({x, y})).sort(), I1);
+  EXPECT_EQ((GiNaC::lst({x, y, z})).sort(), I2);
 }
