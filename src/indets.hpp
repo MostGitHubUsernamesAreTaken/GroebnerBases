@@ -1,10 +1,6 @@
 #pragma once
 
-#include <unordered_set>
-
 #include "multinomial.hpp"
-
-typedef GiNaC::symbol indeterminate;
 
 // Define a type to hold a set of indets, sorted
 typedef GiNaC::lst indet_lst;
