@@ -12,12 +12,12 @@ public:
   bool l1, l2, l3, l4, l5, l6, l7, l8;
   virtual void SetUp()
   {
-    x = symbol("x");
-    y = symbol("y");
-    z = symbol("z");
+    x = indeterminate("x");
+    y = indeterminate("y");
+    z = indeterminate("z");
 
-    P1 = pow(x, 2) - y;
-    P2 = pow(x, 3) - x + pow(x+y+z, 4);
+    P1 = x*x - y;
+    P2 = x*x*x - x + pow(x+y+z, 4);
 
     ism1 = is_monomial(P1);
     ism2 = is_monomial(7*x);
