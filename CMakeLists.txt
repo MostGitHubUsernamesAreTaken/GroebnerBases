@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.10)
 # set the project name
 project(Groebner VERSION 0.1)
 include(gtest.cmake)
-find_package(Threads) # gor gtest
+find_package(Threads) # for gtest
 
 # specify the C++ standard
 set(CMAKE_CXX_STANDARD 11)
