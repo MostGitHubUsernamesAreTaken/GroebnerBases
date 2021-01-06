@@ -8,7 +8,6 @@ find_package(Threads) # gor gtest
 # specify the C++ standard
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
-set(CMAKE_CXX_FLAGS "-g")
 
 add_subdirectory(src tst)
 
