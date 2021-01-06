@@ -6,7 +6,7 @@
 class MultinomialTest : public testing::Test
 {
 public:
-  multinomial P, Q, P1, P2;
+  multinomial P;
   indeterminate x, y;
   bool ismX, ismP;
 
@@ -14,7 +14,7 @@ public:
   {
     x = indeterminate("x");
     y = indeterminate("y");
-    P = multinomial(x*x*x + x*x*x*x + x*y);
+    P = multinomial(x*x*x + y*y*y*y + x*y);
     ismP = is_multinomial(multinomial(x*x*x+ y*y*y*y + x*y));
     ismX = is_multinomial(sin(x));
   }
