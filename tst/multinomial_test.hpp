@@ -15,7 +15,7 @@ public:
     x = indeterminate("x");
     y = indeterminate("y");
     P = multinomial(x*x*x + y*y*y*y + x*y);
-    ismP = is_multinomial(multinomial(x*x*x+ y*y*y*y + x*y));
+    ismP = is_multinomial(multinomial(P));
     ismX = is_multinomial(sin(x));
   }
 
