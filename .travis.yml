@@ -9,4 +9,4 @@ addons:
 script:
   - cmake .
   - cmake --build .
-  - ctest - j 4
+  - ctest -j 4
