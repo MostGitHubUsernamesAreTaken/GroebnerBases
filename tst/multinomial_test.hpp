@@ -12,8 +12,8 @@ public:
 
   virtual void SetUp()
   {
-    x = symbol("x");
-    y = symbol("y");
+    x = indeterminate("x");
+    y = indeterminate("y");
     P = multinomial(x*x*x + x*x*x*x + x*y);
     ismP = is_multinomial(multinomial(x*x*x+ y*y*y*y + x*y));
     ismX = is_multinomial(sin(x));
