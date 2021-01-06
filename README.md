@@ -1,4 +1,5 @@
 # GroebnerBases
+[![Build Status](https://api.travis-ci.org/MostGitHubUsernamesAreTaken/GroebnerBases.svg?branch=master)](https://travis-ci.org/MostGitHubUsernamesAreTaken/GroebnerBases)
 
 (Code is a work in progress.)
 
