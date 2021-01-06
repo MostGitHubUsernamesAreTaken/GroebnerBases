@@ -9,7 +9,6 @@ addons:
       - libginac-dev
 
 script:
-  - cmake --version
   - CXX=/usr/bin/g++-6 CC=/usr/bin/gcc-6 cmake .
   - cmake --build .
   - ctest
