@@ -10,7 +10,6 @@ public:
   multinomial RM1, RM2, RM3;
   multinomial R1, R2, R3, R4;
   multinomial S1, S2, S3, S4, S5, S6;
-  ideal I1, I2, I3, I4, I5;
   indeterminate x, y, z;
   virtual void SetUp()
   {
@@ -54,22 +53,43 @@ public:
     S4 = s_polynomial(P3, P4);
     S5 = s_polynomial(P5, P6);
     S6 = s_polynomial(P5, P6);
-
-    I1 = ideal({P1, P2});
-    I2 = ideal({x*x - 2*y*y, x*y - 3});
-    I3 = ideal({x + y, x*x - 1, y*y - 2*x});
-    I4 = ideal({x*x + y*y + z*z - 1, x - z+2, z*z - x*y});
-    I5 = I1;
-    buchbergers_algorithm(I1);
-    buchbergers_algorithm(I2);
-    buchbergers_algorithm(I3);
-    // buchbergers_algorithm(I4); // too slow to be a reasonable test
-    // buchbergers_algorithm(I5, degree_reverse_lexicographical);
   }
 
   virtual void TearDown()
   {
   }
+};
+
+class BuchbergerTest : public testing::Test
+{
+public:
+    multinomial P1, P2;
+    ideal I1, I2, I3, I4, I5;
+    indeterminate x, y, z;
+    virtual void SetUp()
+    {
+        x = indeterminate("x");
+        y = indeterminate("y");
+        z = indeterminate("z");
+
+        P1 = x*x - y;
+        P2 = x*x*x - x;
+
+        I1 = ideal({P1, P2});
+        I2 = ideal({x*x - 2*y*y, x*y - 3});
+        I3 = ideal({x + y, x*x - 1, y*y - 2*x});
+        I4 = ideal({x*x + y*y + z*z - 1, x - z+2, z*z - x*y});
+        I5 = I1;
+        buchbergers_algorithm(I1);
+        buchbergers_algorithm(I2);
+        buchbergers_algorithm(I3);
+        // buchbergers_algorithm(I4); // too slow to be a reasonable test
+        // buchbergers_algorithm(I5, degree_reverse_lexicographical);
+    }
+
+    virtual void TearDown()
+    {
+    }
 };
 
 TEST_F(IdealTest, testLeadingTerm)
@@ -115,7 +135,7 @@ TEST_F(IdealTest, testSPolynomial)
   // EXPECT_EQ(-x*y*y + x - y*y*y*y, S6); // degree_reverse_lexicographical
 }
 
-TEST_F(IdealTest, testBuchbergers_algorithm)
+TEST_F(BuchbergerTest, testBuchbergers_algorithm)
 {
   EXPECT_EQ(ideal({x*x - y, x*y - x, y*y - y}), I1);
   EXPECT_EQ(ideal({x - 2*y*y*y/3, y*y*y*y - field_element(9, 2)}), I2);
