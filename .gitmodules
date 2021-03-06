@@ -2,8 +2,8 @@
 	path = gtest
 	url = https://github.com/google/googletest.git
 
-[submodule "cln"]
-	path = cln
+[submodule "CLN"]
+	path = CLN
 	url = git://www.ginac.de/cln.git
 
 [submodule "ginac"]
